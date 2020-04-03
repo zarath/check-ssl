@@ -10,11 +10,14 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/Sirupsen/logrus"
+	"os"
 	"runtime"
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/Sirupsen/logrus"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 const (
@@ -33,7 +36,8 @@ var (
 
 func init() {
 	baseTimestamp = time.Now()
-	isTerminal = logrus.IsTerminal()
+	file := os.Stdout
+	isTerminal = terminal.IsTerminal(int(file.Fd()))
 }
 
 func miniTS() int {
